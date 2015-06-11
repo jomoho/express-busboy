@@ -20,7 +20,7 @@ exports.extend = function(app, options) {
     options = options || {};
     options.immediate = false; //Remove if the user sets it
     options.path = options.path || path.join(os.tmpdir(), 'express-busboy');
-
+	options.routes = options.routes || []
     app.use(busboy(options));
 
     app.use(function(req, res, next) {
@@ -34,6 +34,9 @@ exports.extend = function(app, options) {
             });
         } else {
             if (!req.busboy) { //Nothing to parse..
+                return next();
+            }
+            if(options.routes.indexOf(req.route.path) == -1){//filter kicks in
                 return next();
             }
             if (options.upload) {

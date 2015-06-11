@@ -42,8 +42,14 @@ bb.extend(app, {
 
 `path` will default to: `os.tmpdir()/express-busboy/<uuid>/<the field name>/<filename>`.
 
-If needed, we could potentially add a filter for which url's have the ability to upload files.
-
+I added a filter for routes:
+```js
+bb.extend(app, {
+    upload: true,
+    path: '/path/to/save/files'
+    routes: ['route/to/be/active', 'another/route/to/be/active']
+});
+```
 build
 -----
 
